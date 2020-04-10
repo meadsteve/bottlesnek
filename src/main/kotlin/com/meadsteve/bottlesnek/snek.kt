@@ -1,4 +1,4 @@
-package meadsteve.bottlesnek
+package com.meadsteve.bottlesnek
 
 import io.javalin.Javalin
 
