@@ -18,7 +18,7 @@ fun main(_args: Array<String>) {
     app.post("/start") { ctx -> ctx.json(snakeConfig)}
     app.post("/end") { ctx -> ctx.json("ok")}
 
-    app.get("/move"){ ctx -> ctx.json(object {val move=randomMove(); val shout="What about second breakfast?"})}
+    app.post("/move"){ ctx -> ctx.json(object {val move=randomMove(); val shout="What about second breakfast?"})}
 }
 
 fun getHerokuAssignedPort(): Int {
