@@ -13,10 +13,10 @@ enum class Direction {
 
 fun findHeading(from: Square, to: Square): Direction {
     return when {
-        from.x == to.x && from.y > to.y -> Direction.left
-        from.x == to.x && from.y < to.y -> Direction.right
-        from.y == to.y && from.x < to.x -> Direction.down
-        from.y == to.y && from.x > to.x -> Direction.up
+        from.y == to.y && from.x > to.x -> Direction.left
+        from.y == to.y && from.x < to.x -> Direction.right
+        from.x == to.x && from.y > to.y -> Direction.down
+        from.x == to.x && from.y < to.y -> Direction.up
         else -> randomDirection()
     }
 }
