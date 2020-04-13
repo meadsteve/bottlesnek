@@ -17,7 +17,10 @@ fun main(_args: Array<String>) {
     app.post("/start") { ctx -> ctx.json(snakeConfig)}
     app.post("/end") { ctx -> ctx.json("ok")}
 
-    app.post("/move"){ ctx -> ctx.json(randomMove())}
+    app.post("/move"){ ctx ->
+        val game = ctx.body<Game>()
+        ctx.json(randomMove())
+    }
 }
 
 fun getHerokuAssignedPort(): Int {
@@ -27,12 +30,27 @@ fun getHerokuAssignedPort(): Int {
 
 data class Move(val move: Direction, val shout: String)
 
-fun randomMove(): Move {
-    return Move(
-        move=Direction.values().asList().shuffled().first(),
-        shout="What about second breakfast?"
-    )
+fun randomMove() = Move(
+    move=Direction.values().asList().shuffled().first(),
+    shout="What about second breakfast?"
+)
+
+interface Square{
+    val x: Int
+    val y: Int
 }
+
+data class BodyPiece(override val x: Int, override val y: Int): Square
+data class Food(override val x: Int, override val y: Int): Square
+
+data class Snake(val id: String, val name: String, val health: String, val body: List<BodyPiece>, val shout: String) {
+    val head: BodyPiece
+        get() = this.body.first()
+}
+
+data class Board(val height: Int, val width: Int, val food: List<Food>, val snakes: List<Snake>)
+
+data class Game(val game: Any?, val turn: Int, val board: Board, val you: Snake)
 
 enum class Direction {
     up, down, left, right;
