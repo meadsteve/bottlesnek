@@ -1,22 +1,24 @@
 package com.meadsteve.bottlesnek.space
 
-data class Move(val move: Direction)
 interface Square{
     val x: Int
     val y: Int
 }
 
 fun randomDirection() = Direction.values().asList().shuffled().first()
-enum class Direction {
-    up, down, left, right;
+enum class Direction(val value: String) {
+    Up("up"),
+    Down("down"),
+    Left("left"),
+    Right("right");
 }
 
 fun findHeading(from: Square, to: Square): Direction {
     return when {
-        from.y == to.y && from.x > to.x -> Direction.left
-        from.y == to.y && from.x < to.x -> Direction.right
-        from.x == to.x && from.y > to.y -> Direction.down
-        from.x == to.x && from.y < to.y -> Direction.up
+        from.y == to.y && from.x > to.x -> Direction.Left
+        from.y == to.y && from.x < to.x -> Direction.Right
+        from.x == to.x && from.y > to.y -> Direction.Down
+        from.x == to.x && from.y < to.y -> Direction.Up
         else -> randomDirection()
     }
 }

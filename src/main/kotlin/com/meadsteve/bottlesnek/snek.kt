@@ -1,9 +1,6 @@
 package com.meadsteve.bottlesnek
 
-import com.meadsteve.bottlesnek.space.Move
-import com.meadsteve.bottlesnek.space.Square
-import com.meadsteve.bottlesnek.space.findHeading
-import com.meadsteve.bottlesnek.space.randomDirection
+import com.meadsteve.bottlesnek.space.*
 import io.javalin.Javalin
 import org.slf4j.LoggerFactory
 
@@ -27,23 +24,23 @@ fun main(_args: Array<String>) {
     app.post("/move"){ ctx ->
         val game = ctx.body<Game>()
         logger.info("Got a board to make a move on. $game", game)
-        ctx.json(idealMove(game))
+        ctx.json(object{val move = idealMove(game).value})
     }
 
     logger.info("snnnnnn")
 }
 
-fun idealMove(game: Game): Move {
+fun idealMove(game: Game): Direction {
     logger.info("Trying to find ideal move")
     if(game.board.food.isEmpty()) {
         logger.info("Empty board so I'm moving at random")
-        return Move(randomDirection())
+        return randomDirection()
     }
     val firstPieceOfFood = game.board.food.first()
     val heading =
         findHeading(from = game.you.head, to = firstPieceOfFood)
     logger.info("Heading $heading to the food")
-    return Move(heading)
+    return heading
 }
 
 fun getHerokuAssignedPort(): Int {
