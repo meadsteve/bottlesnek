@@ -19,7 +19,9 @@ fun main(_args: Array<String>) {
 
     app.post("/move"){ ctx ->
         val game = ctx.body<Game>()
-        ctx.json(randomMove())
+        val firstPieceOfFood = game.board.food.first()
+        val heading = findHeading(from=game.you.head, to = firstPieceOfFood)
+        ctx.json(Move(heading))
     }
 }
 
@@ -28,12 +30,7 @@ fun getHerokuAssignedPort(): Int {
     return herokuPort?.toInt() ?: 7000
 }
 
-data class Move(val move: Direction, val shout: String)
-
-fun randomMove() = Move(
-    move=Direction.values().asList().shuffled().first(),
-    shout="What about second breakfast?"
-)
+data class Move(val move: Direction, val shout: String="HELPING!")
 
 interface Square{
     val x: Int
@@ -52,6 +49,19 @@ data class Board(val height: Int, val width: Int, val food: List<Food>, val snak
 
 data class Game(val game: Any?, val turn: Int, val board: Board, val you: Snake)
 
+
+fun randomDirection() = Direction.values().asList().shuffled().first()
+
 enum class Direction {
     up, down, left, right;
+}
+
+fun findHeading(from: Square, to: Square): Direction {
+    return when {
+        from.y == to.y && from.x < to.x -> Direction.left
+        from.y == to.y && from.x > to.x -> Direction.right
+        from.x == to.x && from.y > to.y -> Direction.down
+        from.x == to.x && from.y < to.y -> Direction.up
+        else -> randomDirection()
+    }
 }
