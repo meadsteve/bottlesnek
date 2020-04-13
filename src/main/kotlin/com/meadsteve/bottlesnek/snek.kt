@@ -37,16 +37,13 @@ fun idealMove(game: Game): Move {
     logger.info("Trying to find ideal move")
     if(game.board.food.isEmpty()) {
         logger.info("Empty board so I'm moving at random")
-        return Move(
-            randomDirection(),
-            "THERE'S NO FOOD"
-        )
+        return Move(randomDirection())
     }
     val firstPieceOfFood = game.board.food.first()
     val heading =
         findHeading(from = game.you.head, to = firstPieceOfFood)
     logger.info("Heading $heading to the food")
-    return Move(heading, "NOM NOM NOM PENDING")
+    return Move(heading)
 }
 
 fun getHerokuAssignedPort(): Int {

@@ -1,6 +1,6 @@
 package com.meadsteve.bottlesnek.space
 
-data class Move(val move: Direction, val shout: String="HELPING!")
+data class Move(val move: Direction)
 interface Square{
     val x: Int
     val y: Int
