@@ -1,7 +1,6 @@
 package com.meadsteve.bottlesnek
 
 import io.javalin.Javalin
-import java.util.*
 
 
 fun main(_args: Array<String>) {
@@ -18,7 +17,7 @@ fun main(_args: Array<String>) {
     app.post("/start") { ctx -> ctx.json(snakeConfig)}
     app.post("/end") { ctx -> ctx.json("ok")}
 
-    app.post("/move"){ ctx -> ctx.json(object {val move=randomMove(); val shout="What about second breakfast?"})}
+    app.post("/move"){ ctx -> ctx.json(randomMove())}
 }
 
 fun getHerokuAssignedPort(): Int {
@@ -26,8 +25,13 @@ fun getHerokuAssignedPort(): Int {
     return herokuPort?.toInt() ?: 7000
 }
 
-fun randomMove(): Direction {
-    return Direction.values().asList().shuffled().first()
+data class Move(val move: Direction, val shout: String)
+
+fun randomMove(): Move {
+    return Move(
+        move=Direction.values().asList().shuffled().first(),
+        shout="What about second breakfast?"
+    )
 }
 
 enum class Direction {
