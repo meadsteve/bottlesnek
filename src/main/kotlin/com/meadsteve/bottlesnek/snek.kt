@@ -19,10 +19,17 @@ fun main(_args: Array<String>) {
 
     app.post("/move"){ ctx ->
         val game = ctx.body<Game>()
-        val firstPieceOfFood = game.board.food.first()
-        val heading = findHeading(from=game.you.head, to = firstPieceOfFood)
-        ctx.json(Move(heading))
+        ctx.json(idealMove(game))
     }
+}
+
+fun idealMove(game: Game): Move {
+    if(game.board.food.isEmpty()) {
+        return Move(randomDirection(), "THERE'S NO FOOD")
+    }
+    val firstPieceOfFood = game.board.food.first()
+    val heading = findHeading(from=game.you.head, to = firstPieceOfFood)
+    return Move(heading, "NOM NOM NOM PENDING")
 }
 
 fun getHerokuAssignedPort(): Int {
