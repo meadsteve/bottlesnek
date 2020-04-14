@@ -25,7 +25,9 @@ fun main(_args: Array<String>) {
     app.post("/move"){ ctx ->
         val game = ctx.body<Game>()
         logger.info("Got a board to make a move on. $game", game)
-        ctx.json(object{val move = idealMove(game).value})
+        val move = idealMove(game).value
+        logger.info("Making move: $move", move)
+        ctx.json(object {val move = move})
     }
 
     logger.info("snnnnnn")
