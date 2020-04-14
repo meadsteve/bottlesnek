@@ -17,7 +17,8 @@ fun main(_args: Array<String>) {
     }
 
     app.get("/") { ctx -> ctx.result("Hello snek") }
-    app.get("/ping") { ctx -> ctx.result("pong") }
+
+    app.post("/ping") { ctx -> ctx.result("pong") }
 
     app.post("/start") { ctx -> ctx.json(snakeConfig)}
     app.post("/end") { ctx -> ctx.json("ok")}
