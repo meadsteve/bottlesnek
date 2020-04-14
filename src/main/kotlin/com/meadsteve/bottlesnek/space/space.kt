@@ -17,8 +17,8 @@ fun findHeading(from: Square, to: Square): Direction {
     return when {
         from.y == to.y && from.x > to.x -> Direction.Left
         from.y == to.y && from.x < to.x -> Direction.Right
-        from.x == to.x && from.y > to.y -> Direction.Down
-        from.x == to.x && from.y < to.y -> Direction.Up
+        from.x == to.x && from.y < to.y -> Direction.Down
+        from.x == to.x && from.y > to.y -> Direction.Up
         else -> randomDirection()
     }
 }
