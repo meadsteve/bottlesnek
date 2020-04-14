@@ -22,7 +22,7 @@ fun main(_args: Array<String>) {
     app.post("/ping") { ctx -> ctx.result("pong") }
 
     app.post("/start") { ctx -> ctx.json(snakeConfig)}
-    app.post("/end") { ctx -> ctx.json("ok")}
+    app.post("/end") { ctx -> ctx.json(mapOf("result" to "ok"))}
 
     app.post("/move"){ ctx ->
         val game = ctx.body<Game>()
