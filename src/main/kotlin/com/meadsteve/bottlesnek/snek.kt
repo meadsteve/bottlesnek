@@ -1,6 +1,7 @@
 package com.meadsteve.bottlesnek
 
-import com.meadsteve.bottlesnek.space.*
+import com.meadsteve.bottlesnek.domain.Game
+import com.meadsteve.bottlesnek.strategies.idealMove
 import io.javalin.Javalin
 import org.slf4j.LoggerFactory
 
@@ -30,32 +31,7 @@ fun main(_args: Array<String>) {
     logger.info("snnnnnn")
 }
 
-fun idealMove(game: Game): Direction {
-    logger.info("Trying to find ideal move")
-    if(game.board.food.isEmpty()) {
-        logger.info("Empty board so I'm moving at random")
-        return randomDirection()
-    }
-    val firstPieceOfFood = game.board.food.first()
-    val heading =
-        findHeading(from = game.you.head, to = firstPieceOfFood)
-    logger.info("Heading $heading to the food")
-    return heading
-}
-
 fun getHerokuAssignedPort(): Int {
     val herokuPort = System.getenv("PORT")
     return herokuPort?.toInt() ?: 7000
 }
-
-data class BodyPiece(override val x: Int, override val y: Int): Square
-data class Food(override val x: Int, override val y: Int): Square
-
-data class Snake(val id: String, val name: String, val health: String, val body: List<BodyPiece>, val shout: String) {
-    val head: BodyPiece
-        get() = this.body.last()
-}
-
-data class Board(val height: Int, val width: Int, val food: List<Food>, val snakes: List<Snake>)
-
-data class Game(val game: Any?, val turn: Int, val board: Board, val you: Snake)
