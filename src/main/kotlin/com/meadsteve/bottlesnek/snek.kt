@@ -27,7 +27,7 @@ fun main(_args: Array<String>) {
         logger.info("Got a board to make a move on. $game", game)
         val move = idealMove(game).value
         logger.info("Making move: $move", move)
-        ctx.json(object {val move = move})
+        ctx.json(mapOf("move" to move))
     }
 
     logger.info("snnnnnn")
