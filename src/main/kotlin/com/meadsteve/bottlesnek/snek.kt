@@ -13,7 +13,7 @@ fun main(_args: Array<String>) {
     val snakeConfig = object {
         val color = "#e34234"
         val headType = "silly"
-        val tailType = "pixel"
+        val tailType = "bolt"
     }
 
     app.get("/") { ctx -> ctx.result("Hello snek") }
