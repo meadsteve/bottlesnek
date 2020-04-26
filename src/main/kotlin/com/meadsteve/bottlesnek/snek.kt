@@ -12,7 +12,7 @@ val logger = LoggerFactory.getLogger("bottlesnek")
 fun main(_args: Array<String>) {
     val app = Javalin.create().start(getHerokuAssignedPort())
     val snakeConfig = object {
-        val color = "#e34234"
+        val color = "#ff00ff"
         val headType = "silly"
         val tailType = "bolt"
     }
