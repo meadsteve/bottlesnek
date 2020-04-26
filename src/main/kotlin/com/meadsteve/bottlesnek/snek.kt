@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory
 
 val logger = LoggerFactory.getLogger("bottlesnek")
 
+
 fun main(_args: Array<String>) {
     val app = Javalin.create().start(getHerokuAssignedPort())
     val snakeConfig = object {
@@ -21,7 +22,11 @@ fun main(_args: Array<String>) {
     app.get("/ping") { ctx -> ctx.result("pong") }
     app.post("/ping") { ctx -> ctx.result("pong") }
 
-    app.post("/start") { ctx -> ctx.json(snakeConfig)}
+    app.post("/start") { ctx -> ctx.json(mapOf(
+        "color" to snakeConfig.color,
+        "headType" to snakeConfig.headType,
+        "tailType" to snakeConfig.tailType
+    ))}
     app.post("/end") { ctx -> ctx.json(mapOf("result" to "ok"))}
 
     app.post("/move"){ ctx ->
