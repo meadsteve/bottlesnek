@@ -19,8 +19,8 @@ enum class Direction(val value: String, val vector: Vector) {
 
 fun findHeading(from: GridPoint, to: GridPoint): Direction {
     return when {
-        from.x == to.x && from.y > to.y -> Direction.Down
-        from.x == to.x && from.y < to.y -> Direction.Up
+        from.y > to.y -> Direction.Down
+        from.y < to.y -> Direction.Up
         from.y == to.y && from.x > to.x -> Direction.Left
         from.y == to.y && from.x < to.x -> Direction.Right
         else -> randomDirection()
